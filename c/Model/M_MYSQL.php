@@ -9,11 +9,11 @@ class M_MYSQL
 	private $hostname = 'localhost';
 	private $username = 'root';
 	private $password = '';
-	private $dbName = 'ht_2_Mironov';
+	private $dbName = 'first_framework';
   protected $link;
 
     // SINGLETON
-    public static function getInstance()
+    public static function Instance()
     {
     	if (self::$instance === null) {
     		self::$instance = new self();
@@ -28,7 +28,7 @@ class M_MYSQL
 	    $db = mysqli_select_db($link, $this->dbName);
 	    // Создание БД, таблицы и заполнение таблицы
 	    if(!$db) {
-	        mysqli_select_db($link, $this->dbName);
+	        mysqli_select_db($link, $this->dbName) or die('No data base');
 	    }
 	    mysqli_query($link, 'SET NAMES utf8');
 	    mysqli_set_charset($link, 'utf8');
@@ -49,7 +49,7 @@ class M_MYSQL
 		while ($row = mysqli_fetch_assoc($result)) {
 			$arr[] = $row;
 		}
-		return array($arr);
+		return $arr;
 	}
 
 	/**
@@ -129,7 +129,7 @@ class M_MYSQL
 
 	public function articles_count()
 	{
-		$query = "SELECT COUNT(*) AS `count` FROM `lesson2`";
+		$query = "SELECT COUNT(*) AS `count` FROM Articles";
 
 		// Выполнение запроса
 		$result = mysqli_query($this->link, $query);
@@ -144,17 +144,6 @@ class M_MYSQL
 			$array[] = $row;
 
 		return $array['0']['count'];
-	}
-
-	public function startup()
-	{
-		// Языковая настройка
-		setlocale(LC_ALL, 'ru_RU.UTF-8');
-
-		mb_internal_encoding('UTF-8');
-
-		// Открытие сессии
-		session_start();
 	}
 
 // экранирование переменных
@@ -185,25 +174,25 @@ class M_MYSQL
 		return array($array);
 	}
 
-	public function select_comm($where)
-	{
-		$query=sprintf("SELECT * FROM Comments, (SELECT name FROM lesson2 WHERE %s) as D WHERE Comments.name_art= D.name", $where);
-//		$query=sprintf("SELECT name FROM lesson2 WHERE %s", $where);
-		$result = mysqli_query($this->link, $query);
-		if (!$result) {
-			die(mysqli_error($this->link));
-		}
-
-		// извлекаем из БД данные
-		$array = array();
-		while($row = mysqli_fetch_assoc($result)){
-			$array[] = $row;
-		}
-//		var_dump($array);
-		return array($array);
-
-
-	}
+//	public function select_comm($where)
+//	{
+//		$query=sprintf("SELECT * FROM Comments, (SELECT name FROM Articles WHERE %s) as D WHERE Comments.name_art= D.name", $where);
+////		$query=sprintf("SELECT name FROM lesson2 WHERE %s", $where);
+//		$result = mysqli_query($this->link, $query);
+//		if (!$result) {
+//			die(mysqli_error($this->link));
+//		}
+//
+//		// извлекаем из БД данные
+//		$array = array();
+//		while($row = mysqli_fetch_assoc($result)){
+//			$array[] = $row;
+//		}
+////		var_dump($array);
+//		return array($array);
+//
+//
+//	}
 
 
 
