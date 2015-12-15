@@ -1,6 +1,7 @@
 <?php
 
-require_once('c/Model/M_Articles.php');
+require_once('c/Model/model.php');
+require_once('c/Model/M_Users.php');
 
 class C_Editor extends C_Base {
 
@@ -11,9 +12,14 @@ class C_Editor extends C_Base {
   //Посмотр всех статей
   public function action_list() {
 
-    // Подготовка данных
-    $articles_all = M_Articles::getInstance()->All('lesson2');
+    // Может ли пользователь смотерть контакты?
+    if (!M_Users::Instance()->Can('VIEW_RED_CONSOLE'))
+    {
+      die('Отказано в доступе');
+    }
 
+    // Подготовка данных
+    $articles_all = M_Articles::Instance()->All('Articles');
 
     $this->title .= '::Просмотр статей';
 
@@ -29,14 +35,16 @@ class C_Editor extends C_Base {
     }
 
     // Подготовка данных
-    $article_edit = M_Articles::getInstance()->Get();
+    $article_edit = M_Articles::Instance()->Get();
 
     if (isset($_POST['submit'])) {
-      M_MYSQL::getInstance()->update('lesson2', array('id'=>$_POST['id'],'name'=>$_POST['name'], 'content'=>$_POST['content']), 'id='.$_POST['id']);
+      M_MYSQL::Instance()->update('Articles', array('id'=>$_POST['id'],'name'=>$_POST['name'], 'content'=>$_POST['content']), 'id='.$_POST['id']);
       die(header('Location: index.php'));
     }
 
     $this->title .= '::Редактирование';
+
+
 
     $this->content = $this->Template('v/v_edit.php', array('article_edit'=>$article_edit));
   }
@@ -49,9 +57,9 @@ class C_Editor extends C_Base {
       die("Не верный id");
     }
 
-    $article = M_Articles::getInstance()->Get();
+    $article = M_Articles::Instance()->Get();
 
-    $comm_all = M_Articles::getInstance()->Get_comm();
+//    $comm_all = M_Articles::Instance()->Get_comm();
 
     $this->title .= '::Просмотр статьи';
 
@@ -75,7 +83,7 @@ class C_Editor extends C_Base {
       die("Не верный id");
     }
 
-    M_MYSQL::getInstance()->delete('lesson2', 'id='.$id);
+    M_MYSQL::getInstance()->delete('Articles', 'id='.$id);
     header('Location: index.php');
 
   }
@@ -85,7 +93,7 @@ class C_Editor extends C_Base {
   // Обработка отправки формы
     if (isset($_POST['submit'])) {
       if ($_POST['title_art'] != "" && $_POST['content_art'] != "") {
-        M_Articles::getInstance()->article_new($_POST['title_art'], $_POST['date_art'], $_POST['content_art']);
+        M_Articles::Instance()->article_new($_POST['title_art'], $_POST['date_art'], $_POST['content_art']);
         die(header('Location: index.php'));
       }
     }
