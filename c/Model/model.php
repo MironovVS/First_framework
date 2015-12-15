@@ -1,0 +1,1 @@
+<?phpfunction click($i, $num, $color){	$num = isset($num) ? $num : 0;	if($i == $num) {		echo 'class="' . $color . '"';	}}// Функция редиректаfunction redirect($url){	header("Location: $url");	exit;}

@@ -1,0 +1,36 @@
+body {
+    font-family: Georgia;
+    font-size: 14px;
+    color: #000;
+}
+
+.content {
+    width: 500px
+}
+
+table  {
+    /*border: 1px solid black;*/
+    width: 100%;
+}
+
+td {
+    border: 1px solid black;
+    text-align: center;
+    vertical-align: top;
+}
+
+div {
+
+    /*overflow: scroll;*/
+    word-wrap: break-word;
+    margin: 0;
+    padding: 0;
+}
+
+a {color:#00f;}
+
+a:hover {text-decoration: none}
+
+input[type="text"] {width: 500px;}
+
+textarea {width: 500px; height: 300px;}
