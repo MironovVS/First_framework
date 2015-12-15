@@ -1,33 +1,22 @@
-<?php /*
-Шаблон редактируемой страницы
-==============================
-$articles - список статей
-
-статья
-id_article - идентифицатор
-title - заголовок
-content - текст
-*/
-
+<?php
 ?>
 <b><a href="index.php?c=editor&act=new">Новая статья</a></b>
 <table>
-	<?php foreach ($articles_all as $article): ?>
-		<?php for($i=0; $i<count($article); $i++): ?>
+		<?php for($i=0; $i<count($articles_all); $i++): ?>
 			<tr>
 				<td width="40%">
-					<?php echo $article["$i"]['name'] ?>
+					<?php echo $articles_all["$i"]['name'] ?>
 				</td>
 				<td>
-					<a href="index.php?c=editor&act=show&id=<?php echo $article["$i"]['id']?>">Просмотр</a>
+					<a href="index.php?c=editor&act=show&id=<?php echo $articles_all["$i"]['id']?>">Просмотр</a>
 				</td>
 				<td>
-					<a href="index.php?c=editor&act=del&id=<?php echo $article["$i"]['id']?>">Удалить</a>
+					<a href="index.php?c=editor&act=del&id=<?php echo $articles_all["$i"]['id']?>">Удалить</a>
 				</td>
 				<td>
-					<a href="index.php?c=editor&act=edit&id=<?php echo $article["$i"]['id'] ?>">Редактировать</a>
+					<a href="index.php?c=editor&act=edit&id=<?php echo $articles_all["$i"]['id'] ?>">Редактировать</a>
 				</td>
 			</tr>
 		<?php endfor ?>
-	<?php endforeach ?>
+
 </table>

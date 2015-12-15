@@ -9,16 +9,16 @@
 
   <?php
   echo $sort;
-    foreach ($articles_all as $article):
-    for ($i = 0 ; $i < count($article); $i++):?>
+
+    for ($i = 0 ; $i < count($articles_all); $i++):?>
       <tr>
-        <td width="10%"><?php echo $article["$i"]['id']?></td>
-        <td width="20%"><?php echo $article["$i"]['name']?></a></td>
-        <td width="10%"><?php echo $article["$i"]['date']?></td>
-        <td><?php echo $article["$i"]['content']?><a href="index.php?c=editor&act=show&id=<?php echo $article["$i"]['id']?>">...</a></td>
+        <td width="10%"><?php echo $articles_all["$i"]['id']?></td>
+        <td width="20%"><?php echo $articles_all["$i"]['name']?></a></td>
+        <td width="10%"><?php echo $articles_all["$i"]['date']?></td>
+        <td><?php echo $articles_all["$i"]['content']?><a href="index.php?c=editor&act=show&id=<?php echo $articles_all["$i"]['id']?>">...</a></td>
       </tr>
     <?php endfor; ?>
-  <?php endforeach;?>
+
 
   </tbody>
 </table>
